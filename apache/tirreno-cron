@@ -1,1 +1,1 @@
-*/10 * * * * cd /var/www/html && /usr/local/bin/php /var/www/html/index.php /cron >> /var/www/html/logs/error.log 2>> /var/www/html/logs/error.log
+*/10 * * * * /usr/local/bin/php /var/www/html/index.php /cron

@@ -1,10 +1,26 @@
-tirreno is open security analytics.
+[tirreno](https://www.tirreno.com) is an open-source security framework.
 
-tirreno *[tir.ˈrɛ.no]* helps understand, monitor, and protect your applications from cyber threats, account takeovers, bots, and abuse. While classic cybersecurity focuses on infrastructure and network perimeter, most breaches occur through compromised accounts and application logic abuse that bypasses firewalls, SIEM, WAFs, and other defenses.
+tirreno *[tir.ˈrɛ.no]* helps understand, monitor, and protect your product from threats, fraud, and abuse. While classic cybersecurity focuses on infrastructure and network perimeter, most breaches occur through compromised accounts and application logic abuse that bypasses firewalls, SIEM, WAFs, and other defenses. tirreno detects threats where they actually happen: inside your product.
 
-tirreno detects threats where they actually happen: inside your product. It adds a security layer to internal or external applications to identify malicious activity by analyzing user behavior, account activity, field changes history, and business logic abuse that infrastructure tools are unable to detect.
+tirreno is a few-dependency, "low-tech" PHP/PostgreSQL application. After a straightforward five-minute installation, you can ingest events through API calls and immediately access a real-time threat dashboard.
 
-tirreno is a few-dependency, "low-tech" PHP/PostgreSQL software application that can be downloaded and installed on your own web server. After a straightforward five-minute installation process, you can ingest events from your application through API calls and immediately access a real-time threat dashboard.
+## Built for
+
+* **Self-hosted, internal and legacy apps**: Embed security layer
+  to extend your security through audit trails, protect user accounts
+  from takeover, detect cyber threats and monitor insider threats.
+* **SaaS and digital platforms**: Prevent cross-tenant data leakage,
+  online fraud, privilege escalation, data exfiltration and business
+  logic abuse.
+* **Mission critical applications**: Sensitive application protection,
+  even in air-gapped deployments.
+* **Industrial control systems (ICS) and command & control (C2)**: Protect,
+  operational technology, command systems, and critical infrastructure
+  platforms from unauthorized access and malicious commands.
+* **Non-human identities (NHIs)**: Monitor service accounts, API keys,
+  bot behaviors, and detect compromised machine identities.
+* **API-first applications**: Protect against abuse, rate limiting
+  bypasses, scraping, and unauthorized access.
 
 ## Application types
 
@@ -44,13 +60,20 @@ docker run -d --name tirreno-db --network tirreno-network -e POSTGRES_DB=tirreno
 
 Access the app via http://localhost:8585/install/ or http://host-ip:8585/install/ in a browser
 and fill up the form with variables that you have used for db credentials:
+
 ```
-Username:       POSTGRESQL_USER
-Password:       POSTGRESQL_PASSWORD
-Host:           POSTGRESQL_HOST
-Port:           POSTGRESQL_PORT
-Database name:  POSTGRESQL_DB_NAME
-Admin email:    <email-for-notifications>
+Database URL:        postgres://tirreno:secret@tirreno-db:5432/tirreno
+```
+
+or
+
+```
+Database username:   tirreno
+Database password:   secret
+Database host:       tirreno-db
+Database port:       5432
+Database name:       tirreno
+Admin email:         <email-for-notifications>
 ```
 
 Redirect on http://localhost:8585/signup or http://host-ip:8585/signup.
@@ -65,12 +88,17 @@ Example docker-compose.yml for `tirreno`:
 # Access via http://localhost:8585/install/ or http://host-ip:8585/install/
 #
 # During initial tirreno setup,
-# Username:         tirreno
-# Password:         secret
-# Host:             tirreno-db
-# Port:             5432
-# Database name:    tirreno
-# Admin email:      <email-for-notifications>
+#
+# Database URL:          postgres://tirreno:secret@tirreno-db:5432/tirreno
+#
+# or
+#
+# Database username:     tirreno
+# Database password:     secret
+# Database host:         tirreno-db
+# Database port:         5432
+# Database name:         tirreno
+# Admin email:           <email-for-notifications>
 
 services:
 

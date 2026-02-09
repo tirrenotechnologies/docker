@@ -1,7 +1,7 @@
 FROM php:8.1-apache
 
 ENV PHP_MEMORY_LIMIT=256M
-ENV TIRRENO_VERSION=v0.9.11
+ENV TIRRENO_VERSION=v0.9.12
 
 RUN a2enmod rewrite
 
@@ -28,6 +28,10 @@ RUN { \
 RUN curl -fsSL -o tirreno.tar.gz "https://github.com/tirrenotechnologies/tirreno/archive/refs/tags/${TIRRENO_VERSION}.tar.gz" && \
     tar -xzf tirreno.tar.gz --strip-components=1 -C /var/www/html/ && rm tirreno.tar.gz
 
+COPY docker-supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY docker-base-install.php /var/www/html/install/docker-base-install.php
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+
 RUN touch /var/www/html/assets/logs/error.log && touch /var/www/html/assets/logs/blacklist.log
 
 RUN chown -R www-data:www-data /var/www/html
@@ -35,5 +39,9 @@ RUN chown -R www-data:www-data /var/www/html
 RUN chmod 0644 /etc/cron.d/tirreno-cron \
     && crontab /etc/cron.d/tirreno-cron \
     && touch /var/log/cron.log
+
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
 
 CMD ["sh", "-c", "cron && apache2-foreground"]

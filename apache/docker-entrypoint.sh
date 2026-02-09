@@ -20,8 +20,13 @@ else
     user="$uid"
     group="$gid"
 fi
-tar cf - --one-file-system -C /usr/src/tirreno . | tar xf -
+
 chown -R "$user":"$group" .
 
-exec "$@"
+CONFIG_FILE="/var/www/html/config/local/config.local.ini"
 
+if [ ! -f "$CONFIG_FILE" ]; then
+  php /var/www/html/install/docker-base-install.php
+fi
+
+exec "$@"
